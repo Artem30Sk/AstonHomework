@@ -4,7 +4,7 @@ public class Animal {
     public String name;
     public static int countAnimal = 0;
 
-    {countAnimal+=1;}
+    { countAnimal+=1; }
     public Animal(String name){
         this.name = name;
     }
@@ -14,7 +14,7 @@ public class Animal {
     public void swim(int distance){
         System.out.println("Животное: " + name + " проплыло " + distance + " м.");
     }
-    public void printAnimal(){
+    public void printCountAnimal(){
         System.out.println("Всего животных " + countAnimal);
     }
 }
