@@ -1,6 +1,5 @@
 package org.example;
 
-//Задание-2
 public class Person {
     private String name;
     private String lastname;

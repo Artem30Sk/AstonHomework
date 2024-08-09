@@ -1,25 +1,23 @@
 package org.example;
 
 
-//Задание-1
 public class Employee {
     private String name;
-    private String lastname;
+    private String lastName;
     private String post;
     private int phone;
     private int salary;
     private int age;
-    public Employee(){
-        name = "Олег";
-        lastname = "Белый";
-        post = "Стажер";
-        phone = 2223311;
-        salary=30000;
-        age = 25;
+    public Employee(String _name, String _lastName, String _post, int _phone, int _salary, int _age){
+        this.name = _name;
+        this.lastName = _lastName;
+        this.post = _post;
+        this.phone = _phone;
+        this.salary = _salary;
+        this.age = _age;
     }
     public void printInfo(){
-        Employee main = new Employee();
-        System.out.println(main.name + " " + main.lastname + " " + main.post + " " + main.phone + " " + main.salary + " " + main.age);
+        System.out.println(this.name + "  " + this.lastName + "  " + this.post + "  " + this.phone + "  " + this.salary + "  " + this.age);
     }
 
 }
