@@ -8,7 +8,7 @@ public interface Circle {
     }
 
     public default double circleArea(double r) {
-        double result = Math.PI * Math.pow(r,2);
+        double result = Math.PI * Math.pow(r, 2);
         return result;
     }
 }

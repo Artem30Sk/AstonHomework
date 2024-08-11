@@ -1,6 +1,6 @@
 package org.example;
 
-public class CircleClass implements Circle{
+public class CircleClass implements Circle {
     public String fillColor;
 
     public String borderColor;
@@ -11,12 +11,12 @@ public class CircleClass implements Circle{
 
     private double area;
 
-    public CircleClass(String fillColor, String borderColor, double r){
+    public CircleClass(String fillColor, String borderColor, double r) {
         this.fillColor = fillColor;
         this.borderColor = borderColor;
         this.r = r;
     }
-    public void printCircle(){
+    public void printCircle() {
         perimeter = circlePerimeter(r);
         area = circleArea(r);
         System.out.println("Периметр круга = " + perimeter + ", Площадь круга = " + area + ", Цвет фона = " + fillColor + ", Цвет границы = " + borderColor);

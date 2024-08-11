@@ -1,6 +1,6 @@
 package org.example;
 
-public class TriangleClass implements Triangle{
+public class TriangleClass implements Triangle {
     public String fillColor;
 
     public String borderColor;
@@ -19,7 +19,7 @@ public class TriangleClass implements Triangle{
 
     private double area;
 
-    public TriangleClass(String fillColor, String borderColor, double a, double b, double c, double h, double f){
+    public TriangleClass(String fillColor, String borderColor, double a, double b, double c, double h, double f) {
         this.fillColor = fillColor;
         this.borderColor = borderColor;
         this.a = a;
@@ -28,7 +28,7 @@ public class TriangleClass implements Triangle{
         this.h = h;
         this.f = f;
     }
-    public void printTriangle(){
+    public void printTriangle() {
         perimeter = trianglePerimeter(a, b, c);
         area = triangleArea(f, h);
         System.out.println("Периметр треугольника = " + perimeter + ", Площадь треугольника = " + area + ", Цвет фона = " + fillColor + ", Цвет границы = " + borderColor);

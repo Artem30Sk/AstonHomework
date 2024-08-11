@@ -8,7 +8,7 @@ public interface Triangle {
     }
 
     public default double triangleArea(double f, double h) {
-        double result = ( f * h ) / 2;
+        double result = (f * h) / 2;
         return result;
     }
 }
