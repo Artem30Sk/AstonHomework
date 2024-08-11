@@ -1,6 +1,6 @@
 package org.example;
 
-public class Dog extends Animal{
+public class Dog extends Animal {
     final private int runMax = 500;
     final private int swimMax = 10;
     public static int countDog = 0;

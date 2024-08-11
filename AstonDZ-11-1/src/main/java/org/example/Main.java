@@ -33,10 +33,10 @@ public class Main {
         catArray[0] = new Cat("Барсик",5);
         catArray[1] = new Cat("Мурзик",20);
         catArray[2] = new Cat("Бандит",10);
-        eatMealSomeCat(catArray);
+        eatMealSomeCats(catArray);
 
     }
-    public static void eatMealSomeCat(Cat[] cat) {
+    public static void eatMealSomeCats(Cat[] cat) {
         for (Cat value : cat) {
             if (value.mealMinimum > foodBowl) {
                 System.out.println("В миске не хватает еды для кота " + value.name);
