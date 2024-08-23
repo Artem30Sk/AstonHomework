@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -18,6 +19,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestMTS {
 
     WebDriver driver;
+
+    static final String DEFAULT_URL = "https://mts.by";
 
     @BeforeEach
     void setup() {
@@ -29,60 +32,56 @@ public class TestMTS {
         driver.quit();
     }
 
-    @Test
-    void testCheckTitleName() {
-        String title = "Онлайн пополнение без комиссии";
-        String testTitle="";
-        WebElement element;
-        driver.get("https://mts.by");
+    private void closeCookie() {
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         try {
             driver.findElement(By.xpath(".//div[@class='cookie__wrapper']/*/button[text()='Принять']")).click();
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
+    }
+
+    @Test
+    void testCheckTitleName() {
+        String title = "Онлайн пополнение без комиссии";
+        String testTitle = "";
+        WebElement element;
+        driver.get(DEFAULT_URL);
+        closeCookie();
         element = driver.findElement(By.xpath(".//h2[contains(text(), 'Онлайн пополнение')]"));
         String innerText = element.getAttribute("innerHTML");
         String[] lines = innerText.split("<br>");
         testTitle += lines[0] + lines[1];
-        assertEquals(title,testTitle);
+        assertEquals(title, testTitle);
     }
 
     @Test
     void testCheckLogo() {
-        driver.get("https://mts.by");
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        try {
-            driver.findElement(By.xpath(".//div[@class='cookie__wrapper']/*/button[text()='Принять']")).click();
-        } catch (Exception e) { }
+        driver.get(DEFAULT_URL);
+        closeCookie();
         for (int i = 1; i < 6; i++) {
             WebElement element;
-            element=driver.findElement(By.xpath(String.format(".//div[@class='pay__partners']/ul/li[%s]/img",i)));
+            element = driver.findElement(By.xpath(String.format(".//div[@class='pay__partners']/ul/li[%s]/img", i)));
             System.out.println(element.getAttribute("src"));
-            assertNotEquals(null,element.getAttribute("src"));
+            assertNotEquals(null, element.getAttribute("src"));
         }
     }
 
     @Test
     void testCheckLink() throws IOException {
-        driver.get("https://mts.by");
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        try {
-            driver.findElement(By.xpath(".//div[@class='cookie__wrapper']/*/button[text()='Принять']")).click();
-        } catch (Exception e) { }
-        String currentPage=driver.getCurrentUrl();
+        driver.get(DEFAULT_URL);
+        closeCookie();
+        String currentPage = driver.getCurrentUrl();
         driver.findElement(By.xpath(".//div[@class='pay__wrapper']/a")).click();
         String newPage = driver.getCurrentUrl();
         String truePage = "https://www.mts.by/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/";
-        assertNotEquals(currentPage,newPage);
-        assertEquals(truePage,newPage);
+        assertNotEquals(currentPage, newPage);
+        assertEquals(truePage, newPage);
     }
 
     @Test
-    void testCheckButton(){
-        driver.get("https://mts.by");
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        try {
-            driver.findElement(By.xpath(".//div[@class='cookie__wrapper']/*/button[text()='Принять']")).click();
-        } catch (Exception e) { }
+    void testCheckButton() {
+        driver.get(DEFAULT_URL);
+        closeCookie();
         WebElement phoneInputBox;
         WebElement costInputBox;
         WebElement continueButton;
@@ -99,7 +98,8 @@ public class TestMTS {
         try {
             driver.switchTo().frame(driver.findElement(By.xpath(".//iframe[@class='bepaid-iframe']")));
             check = true;
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
         assertTrue(check);
     }
 }
