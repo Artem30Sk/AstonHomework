@@ -6,6 +6,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,6 +20,8 @@ public class TestMTS {
     public static PayInstalmentClass payInstalmentClass;
     public static PayArrearsClass payArrearsClass;
 
+    public static PayWrapperClass payWrapperClass;
+
     static final String DEFAULT_URL = "https://mts.by";
 
     @BeforeEach
@@ -27,6 +31,9 @@ public class TestMTS {
         payInternetClass = new PayInternetClass(driver);
         payInstalmentClass = new PayInstalmentClass(driver);
         payArrearsClass = new PayArrearsClass(driver);
+        payWrapperClass = new PayWrapperClass(driver);
+        driver.get(DEFAULT_URL);
+        closeCookie();
     }
 
     @AfterEach
@@ -43,9 +50,31 @@ public class TestMTS {
     }
 
     @Test
+    void testCheckTitleName() {
+        String title = "Онлайн пополнение без комиссии";
+        assertEquals(title, payWrapperClass.getPayWrapperHeaderText());
+    }
+
+    @Test
+    void testCheckLogo() {
+        String[] imageSrc = payWrapperClass.findImageAppWrapper(6);
+        for (int i = 1; i < 6; i++) {
+            assertNotEquals(null, imageSrc[i - 1]);
+        }
+    }
+
+    @Test
+    void testCheckLink() throws IOException {
+        String truePage = "https://www.mts.by/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/";
+        String currentPage = driver.getCurrentUrl();
+        payWrapperClass.clickLink();
+        String newPage = driver.getCurrentUrl();
+        assertNotEquals(currentPage, newPage);
+        assertEquals(truePage, newPage);
+    }
+
+    @Test
     void checkPlaceHolder1() {
-        driver.get(DEFAULT_URL);
-        closeCookie();
         assertAll(
                 () -> assertEquals("Номер телефона", payConnectionClass.getPhoneConnection()),
                 () -> assertEquals("Сумма", payConnectionClass.getSumConnection()),
@@ -55,8 +84,6 @@ public class TestMTS {
 
     @Test
     void checkPlaceHolder2() {
-        driver.get(DEFAULT_URL);
-        closeCookie();
         driver.findElement(By.xpath(".//div[@class='pay__wrapper']//span[text()='Услуги связи']")).click();
         driver.findElement(By.xpath(".//div[@class='pay__wrapper']//p[text()='Домашний интернет']")).click();
         assertAll(
@@ -68,8 +95,6 @@ public class TestMTS {
 
     @Test
     void checkPlaceHolder3() {
-        driver.get(DEFAULT_URL);
-        closeCookie();
         driver.findElement(By.xpath(".//div[@class='pay__wrapper']//span[text()='Услуги связи']")).click();
         driver.findElement(By.xpath(".//div[@class='pay__wrapper']//p[text()='Рассрочка']")).click();
         assertAll(
@@ -81,8 +106,6 @@ public class TestMTS {
 
     @Test
     void checkPlaceHolder4() {
-        driver.get(DEFAULT_URL);
-        closeCookie();
         driver.findElement(By.xpath(".//div[@class='pay__wrapper']//span[text()='Услуги связи']")).click();
         driver.findElement(By.xpath(".//div[@class='pay__wrapper']//p[text()='Задолженность']")).click();
         assertAll(
@@ -94,8 +117,6 @@ public class TestMTS {
 
     @Test
     void testCheckIframe() {
-        driver.get(DEFAULT_URL);
-        closeCookie();
         payConnectionClass.inputPhone("(29)777-77-77");
         payConnectionClass.inputSum("100");
         payConnectionClass.clickBtn();
@@ -112,13 +133,13 @@ public class TestMTS {
                 () -> assertEquals("CVC", payConnectionClass.getCvcCodeText()),
                 () -> assertEquals("Имя держателя (как на карте)", payConnectionClass.getNameOwnerText())
         );
+        String[] imageSrc = payWrapperClass.findImageIframe(1,4);
         for (int i = 1; i < 4; i++) {
-            WebElement image = driver.findElement(By.xpath(String.format(".//div[@class='cards-brands ng-tns-c46-1']/div/img[%s]", i)));
-            assertNotEquals(null, image.getAttribute("src"));
+            assertNotEquals(null, imageSrc[i-1]);
         }
+        imageSrc = payWrapperClass.findImageIframe(2,3);
         for (int i = 1; i < 3; i++) {
-            WebElement image = driver.findElement(By.xpath(String.format(".//div[@class='cards-brands ng-tns-c46-1']/div/div/img[%s]", i)));
-            assertNotEquals(null, image.getAttribute("src"));
+            assertNotEquals(null, imageSrc[i-1]);
         }
     }
 
