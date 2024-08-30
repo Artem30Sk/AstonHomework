@@ -42,7 +42,7 @@ public class TestMTS {
     }
 
     private void closeCookie() {
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+        payWrapperClass.timeDelaySeconds(3);
         try {
             payWrapperClass.clickPathObject(".//div[@class='cookie__wrapper']/*/button[text()='Принять']");
         } catch (Exception e) {
@@ -120,7 +120,7 @@ public class TestMTS {
         payConnectionClass.inputPhone("(29)777-77-77");
         payConnectionClass.inputSum("100");
         payConnectionClass.clickBtn();
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        payWrapperClass.timeDelaySeconds(5);
         driver.switchTo().frame(driver.findElement(By.xpath(".//iframe[@class='bepaid-iframe']")));
         String correctSum = "100";
         String correctPhone = "375297777777";
@@ -133,13 +133,13 @@ public class TestMTS {
                 () -> assertEquals("CVC", payConnectionClass.getCvcCodeText()),
                 () -> assertEquals("Имя держателя (как на карте)", payConnectionClass.getNameOwnerText())
         );
-        String[] imageSrc = payWrapperClass.findImageIframe(1,4);
+        String[] imageSrc = payWrapperClass.findImageIframe(1, 4);
         for (int i = 1; i < 4; i++) {
-            assertNotEquals(null, imageSrc[i-1]);
+            assertNotEquals(null, imageSrc[i - 1]);
         }
-        imageSrc = payWrapperClass.findImageIframe(2,3);
+        imageSrc = payWrapperClass.findImageIframe(2, 3);
         for (int i = 1; i < 3; i++) {
-            assertNotEquals(null, imageSrc[i-1]);
+            assertNotEquals(null, imageSrc[i - 1]);
         }
     }
 

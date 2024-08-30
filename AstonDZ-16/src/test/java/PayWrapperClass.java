@@ -4,6 +4,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.concurrent.TimeUnit;
+
 public class PayWrapperClass {
 
     public WebDriver driver;
@@ -28,15 +30,14 @@ public class PayWrapperClass {
         return imageSrc;
     }
 
-    public String[] findImageIframe(int position, int n){
+    public String[] findImageIframe(int position, int n) {
         String[] imageSrc = new String[n];
-        if(position == 1){
+        if (position == 1) {
             for (int i = 1; i < n; i++) {
                 WebElement logo = driver.findElement(By.xpath(String.format(".//div[@class='cards-brands ng-tns-c46-1']/div/img[%s]", i)));
                 imageSrc[i - 1] = logo.getAttribute("src");
             }
-        }
-        else {
+        } else {
             for (int i = 1; i < n; i++) {
                 WebElement logo = driver.findElement(By.xpath(String.format(".//div[@class='cards-brands ng-tns-c46-1']/div/div/img[%s]", i)));
                 imageSrc[i - 1] = logo.getAttribute("src");
@@ -49,7 +50,13 @@ public class PayWrapperClass {
         linkService.click();
     }
 
-    public void clickPathObject(String object){driver.findElement(By.xpath(object)).click();}
+    public void clickPathObject(String object) {
+        driver.findElement(By.xpath(object)).click();
+    }
+
+    public void timeDelaySeconds(int delay) {
+        driver.manage().timeouts().implicitlyWait(delay, TimeUnit.SECONDS);
+    }
 
     public String getPayWrapperHeaderText() {
         String innerText = payWrapperHeader.getAttribute("innerHTML");
