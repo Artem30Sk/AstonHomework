@@ -49,6 +49,8 @@ public class PayWrapperClass {
         linkService.click();
     }
 
+    public void clickPathObject(String object){driver.findElement(By.xpath(object)).click();}
+
     public String getPayWrapperHeaderText() {
         String innerText = payWrapperHeader.getAttribute("innerHTML");
         String[] lines = innerText.split("<br>");

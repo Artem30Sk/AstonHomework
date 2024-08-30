@@ -44,7 +44,7 @@ public class TestMTS {
     private void closeCookie() {
         driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         try {
-            driver.findElement(By.xpath(".//div[@class='cookie__wrapper']/*/button[text()='Принять']")).click();
+            payWrapperClass.clickPathObject(".//div[@class='cookie__wrapper']/*/button[text()='Принять']");
         } catch (Exception e) {
         }
     }
@@ -84,8 +84,8 @@ public class TestMTS {
 
     @Test
     void checkPlaceHolder2() {
-        driver.findElement(By.xpath(".//div[@class='pay__wrapper']//span[text()='Услуги связи']")).click();
-        driver.findElement(By.xpath(".//div[@class='pay__wrapper']//p[text()='Домашний интернет']")).click();
+        payWrapperClass.clickPathObject(".//div[@class='pay__wrapper']//span[text()='Услуги связи']");
+        payWrapperClass.clickPathObject(".//div[@class='pay__wrapper']//p[text()='Домашний интернет']");
         assertAll(
                 () -> assertEquals("Номер абонента", payInternetClass.getPhoneInternet()),
                 () -> assertEquals("Сумма", payInternetClass.getSumInternet()),
@@ -95,8 +95,8 @@ public class TestMTS {
 
     @Test
     void checkPlaceHolder3() {
-        driver.findElement(By.xpath(".//div[@class='pay__wrapper']//span[text()='Услуги связи']")).click();
-        driver.findElement(By.xpath(".//div[@class='pay__wrapper']//p[text()='Рассрочка']")).click();
+        payWrapperClass.clickPathObject(".//div[@class='pay__wrapper']//span[text()='Услуги связи']");
+        payWrapperClass.clickPathObject(".//div[@class='pay__wrapper']//p[text()='Рассрочка']");
         assertAll(
                 () -> assertEquals("Номер счета на 44", payInstalmentClass.getScoreInstalment()),
                 () -> assertEquals("Сумма", payInstalmentClass.getSumInstalment()),
@@ -106,8 +106,8 @@ public class TestMTS {
 
     @Test
     void checkPlaceHolder4() {
-        driver.findElement(By.xpath(".//div[@class='pay__wrapper']//span[text()='Услуги связи']")).click();
-        driver.findElement(By.xpath(".//div[@class='pay__wrapper']//p[text()='Задолженность']")).click();
+        payWrapperClass.clickPathObject(".//div[@class='pay__wrapper']//span[text()='Услуги связи']");
+        payWrapperClass.clickPathObject(".//div[@class='pay__wrapper']//p[text()='Задолженность']");
         assertAll(
                 () -> assertEquals("Номер счета на 2073", payArrearsClass.getScoreArrears()),
                 () -> assertEquals("Сумма", payArrearsClass.getSumArrears()),
