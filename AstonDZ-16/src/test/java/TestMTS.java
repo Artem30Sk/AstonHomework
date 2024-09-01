@@ -1,6 +1,8 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -92,7 +94,8 @@ public class TestMTS {
                 () -> assertEquals("E-mail для отправки чека", payInternetClass.getEmailInternet())
         );
     }
-
+    @DisplayName("Проверка полей у раздела 'Рассрочка'")
+    @Step
     @Test
     void checkPlaceHolder3() {
         payWrapperClass.clickPathObject(".//div[@class='pay__wrapper']//span[text()='Услуги связи']");
