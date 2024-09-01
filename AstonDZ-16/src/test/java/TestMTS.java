@@ -51,12 +51,14 @@ public class TestMTS {
         }
     }
 
+    @DisplayName("Проверка заголовка")
     @Test
     void testCheckTitleName() {
         String title = "Онлайн пополнение без комиссии";
         assertEquals(title, payWrapperClass.getPayWrapperHeaderText());
     }
 
+    @DisplayName("Проверка наличия логотипов платежных систем")
     @Test
     void testCheckLogo() {
         String[] imageSrc = payWrapperClass.findImageAppWrapper(6);
@@ -65,6 +67,7 @@ public class TestMTS {
         }
     }
 
+    @DisplayName("Проверка работы ссылки")
     @Test
     void testCheckLink() throws IOException {
         String truePage = "https://www.mts.by/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/";
@@ -74,7 +77,7 @@ public class TestMTS {
         assertNotEquals(currentPage, newPage);
         assertEquals(truePage, newPage);
     }
-
+    @DisplayName("Проверка полей у раздела 'Услуги связи'")
     @Test
     void checkPlaceHolder1() {
         assertAll(
@@ -83,7 +86,7 @@ public class TestMTS {
                 () -> assertEquals("E-mail для отправки чека", payConnectionClass.getEmailConnection())
         );
     }
-
+    @DisplayName("Проверка полей у раздела 'Домашний интернет'")
     @Test
     void checkPlaceHolder2() {
         payWrapperClass.clickPathObject(".//div[@class='pay__wrapper']//span[text()='Услуги связи']");
@@ -106,7 +109,7 @@ public class TestMTS {
                 () -> assertEquals("E-mail для отправки чека", payInstalmentClass.getEmailInstalment())
         );
     }
-
+    @DisplayName("Проверка полей у раздела 'Задолженность'")
     @Test
     void checkPlaceHolder4() {
         payWrapperClass.clickPathObject(".//div[@class='pay__wrapper']//span[text()='Услуги связи']");
@@ -117,7 +120,7 @@ public class TestMTS {
                 () -> assertEquals("E-mail для отправки чека", payArrearsClass.getEmailArrears())
         );
     }
-
+    @DisplayName("Проверка корректности фрейма")
     @Test
     void testCheckIframe() {
         payConnectionClass.inputPhone("(29)777-77-77");
